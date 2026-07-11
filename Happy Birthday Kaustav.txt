@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Kaustav 🎂</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body{
+    background: linear-gradient(135deg,#ff9a9e,#fad0c4,#fbc2eb,#a18cd1);
+    min-height:100vh;
+    overflow-x:hidden;
+    text-align:center;
+    color:#fff;
+}
+
+.hero{
+    padding:60px 20px;
+}
+
+h1{
+    font-size:4rem;
+    text-shadow:2px 2px 10px rgba(0,0,0,.3);
+}
+
+.subtitle{
+    font-size:1.4rem;
+    margin-top:15px;
+}
+
+.countdown{
+    margin:30px auto;
+    font-size:2rem;
+    background:rgba(255,255,255,.15);
+    width:max-content;
+    padding:15px 25px;
+    border-radius:15px;
+    backdrop-filter:blur(10px);
+}
+
+.gallery{
+    max-width:800px;
+    margin:40px auto;
+}
+
+.gallery img{
+    width:90%;
+    max-width:700px;
+    height:450px;
+    object-fit:cover;
+    border-radius:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,.25);
+}
+
+.message{
+    max-width:900px;
+    margin:40px auto;
+    padding:30px;
+    background:rgba(255,255,255,.15);
+    border-radius:20px;
+}
+
+.message p{
+    font-size:1.3rem;
+    line-height:1.8;
+}
+
+.gift-btn{
+    margin:30px;
+    padding:15px 35px;
+    border:none;
+    border-radius:50px;
+    background:#fff;
+    color:#ff4081;
+    font-size:1.2rem;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.surprise{
+    display:none;
+    margin:25px;
+    font-size:2rem;
+}
+
+.balloon,
+.heart{
+    position:fixed;
+    font-size:35px;
+    animation:floatUp 12s linear infinite;
+}
+
+@keyframes floatUp{
+    from{
+        transform:translateY(110vh);
+        opacity:1;
+    }
+    to{
+        transform:translateY(-120vh);
+        opacity:0;
+    }
+}
+
+footer{
+    margin:50px 0;
+    font-size:1.2rem;
+}
+
+canvas{
+    position:fixed;
+    top:0;
+    left:0;
+    pointer-events:none;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="fireworks"></canvas>
+
+<div class="hero">
+    <h1>🎉 Happy Birthday Kaustav 🎉</h1>
+    <p class="subtitle">Many Many Happy Returns of the Day!</p>
+
+    <div class="countdown">
+        🎂 Celebrating Your Special Day 🎂
+    </div>
+</div>
+
+<div class="gallery">
+    <img id="slide" src="photo1.jpg" alt="Birthday Memories">
+</div>
+
+<div class="message">
+    <p>
+        Dear Kaustav,<br><br>
+
+        Wishing you a year filled with happiness, success,
+        laughter, good health and unforgettable memories.
+
+        Stay charming and blessed always, and may you achieve
+        all the dreams you have ever dreamed of.
+
+        May every new day bring you closer to your goals and
+        fill your life with joy and positivity.
+
+        Happy Birthday! 🎂✨
+    </p>
+</div>
+
+<button class="gift-btn" onclick="showGift()">
+🎁 Open Your Gift
+</button>
+
+<div class="surprise" id="surprise">
+✨ Your gift is a year full of happiness, success and endless smiles! ❤️
+</div>
+
+<audio autoplay loop controls>
+    <source src="birthday-music.mp3" type="audio/mpeg">
+</audio>
+
+<footer>
+    With Love ❤️
+</footer>
+
+<script>
+// Slideshow
+const photos = [
+"photo1.jpg",
+"photo2.jpg",
+"photo3.jpg",
+"photo4.jpg"
+];
+
+let index = 0;
+
+setInterval(()=>{
+    index = (index + 1) % photos.length;
+    document.getElementById("slide").src = photos[index];
+},3000);
+
+// Gift
+function showGift(){
+    document.getElementById("surprise").style.display="block";
+}
+
+// Balloons & Hearts
+function createFloatingEmoji(emoji){
+    const e = document.createElement("div");
+    e.className = emoji === "🎈" ? "balloon" : "heart";
+    e.innerHTML = emoji;
+    e.style.left = Math.random()*100+"vw";
+    e.style.animationDuration = (8+Math.random()*8)+"s";
+    document.body.appendChild(e);
+
+    setTimeout(()=>{
+        e.remove();
+    },15000);
+}
+
+setInterval(()=>{
+    createFloatingEmoji("🎈");
+},1200);
+
+setInterval(()=>{
+    createFloatingEmoji("❤️");
+},1800);
+
+// Fireworks
+const canvas = document.getElementById("fireworks");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+function firework(){
+    const x = Math.random()*canvas.width;
+    const y = Math.random()*canvas.height/2;
+
+    for(let i=0;i<50;i++){
+        ctx.beginPath();
+        ctx.arc(
+            x + Math.random()*120 - 60,
+            y + Math.random()*120 - 60,
+            3,
+            0,
+            Math.PI*2
+        );
+        ctx.fillStyle =
+        `hsl(${Math.random()*360},100%,60%)`;
+        ctx.fill();
+    }
+}
+
+setInterval(()=>{
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    firework();
+},700);
+</script>
+
+</body>
+</html>
